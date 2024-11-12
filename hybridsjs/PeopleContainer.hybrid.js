@@ -3,7 +3,7 @@ import "./Person.hybrid.js";
 
 define({
   tag: "people-hybrid",
-  people: null,
+  people: { value: [] },
   render: ({ people }) => html`
     <style>
       .people-wrapper {
@@ -17,7 +17,7 @@ define({
       }
     </style>
     <div class="people-wrapper">
-      ${people?.map((person) => {
+      ${people.map((person) => {
         return html`<person-hybrid person=${person}></person-hybrid>`;
       })}
     </div>

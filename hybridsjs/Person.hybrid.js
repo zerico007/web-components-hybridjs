@@ -2,7 +2,17 @@ import { define, html } from "https://esm.sh/hybrids@^9";
 
 define({
   tag: "person-hybrid",
-  person: null,
+  person: {
+    value: {
+      name: "",
+      height: "",
+      mass: "",
+      hair_color: "",
+      skin_color: "",
+      eye_color: "",
+      birth_year: "",
+    },
+  },
   render: ({ person }) => html`
     <style>
       .person {
