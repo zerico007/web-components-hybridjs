@@ -100,9 +100,7 @@ class SearchComponent extends HTMLElement {
     //create button element
     const button = document.createElement("button");
     button.textContent = "Search";
-    button.addEventListener("click", () => {
-      this.updateSearchTerm();
-    });
+    button.type = "submit";
     //append input and button to container
     container.appendChild(input);
     container.appendChild(button);
