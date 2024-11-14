@@ -1,7 +1,7 @@
 import { define, html, store } from "https://esm.sh/hybrids@^9";
 import "./PeopleContainer.hybrid.js";
 import "./Pagination.hybrid.js";
-import { pageStore } from "./stores/page.js";
+import { pageStore, setPage } from "./stores/page.js";
 import { peopleStore } from "./stores/people.js";
 
 define({
@@ -49,7 +49,7 @@ define({
       class="search-wrapper"
       onsubmit=${(_host, event) => {
         event.preventDefault();
-        store.set(pageStore, { page: 1 });
+        setPage(1);
       }}
     >
       <input
@@ -57,7 +57,7 @@ define({
         placeholder="Search for a person..."
         oninput=${(host, event) => {
           host.searchTerm = event.target.value;
-          store.set(pageStore, { page: 1 });
+          setPage(1);
         }}
         value=${searchTerm}
       />
