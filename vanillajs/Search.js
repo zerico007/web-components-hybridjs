@@ -53,35 +53,12 @@ class SearchComponent extends HTMLElement {
     this.shadowRoot.appendChild(style);
   }
 
-  async getPeople(page = 1) {
-    const paginationContainer = this.shadowRoot.querySelector(
-      "pagination-container"
-    );
-    const peopleContainer = this.shadowRoot.querySelector("people-container");
-
-    const loadingText = document.createElement("p");
-    loadingText.className = "loading";
-    loadingText.innerHTML = "Loading...";
-
-    this.shadowRoot.insertBefore(loadingText, peopleContainer);
-    const peopleResponse = await searchPeople(this.searchTerm, page);
-    this.people = peopleResponse.results;
-
-    //pass 'props' to pagination-container
-    paginationContainer.setAttribute("count", peopleResponse.count);
-    paginationContainer.setAttribute("next", peopleResponse.next || "");
-    paginationContainer.setAttribute("previous", peopleResponse.previous || "");
-
-    this.shadowRoot.removeChild(loadingText);
-    peopleContainer.setAttribute("people", JSON.stringify(this.people));
-  }
-
   render() {
     const container = document.createElement("form");
     container.className = "search-wrapper";
     container.addEventListener("submit", (event) => {
       event.preventDefault();
-      this.updateSearchTerm();
+      this.getPeople();
     });
     // create pagination container
     const paginationContainer = document.createElement("pagination-container");
@@ -108,6 +85,29 @@ class SearchComponent extends HTMLElement {
     this.shadowRoot.appendChild(container);
     this.shadowRoot.appendChild(paginationContainer);
     this.shadowRoot.appendChild(peopleContainer);
+  }
+
+  async getPeople(page = 1) {
+    const paginationContainer = this.shadowRoot.querySelector(
+      "pagination-container"
+    );
+    const peopleContainer = this.shadowRoot.querySelector("people-container");
+
+    const loadingText = document.createElement("p");
+    loadingText.className = "loading";
+    loadingText.innerHTML = "Loading...";
+
+    this.shadowRoot.insertBefore(loadingText, peopleContainer);
+    const peopleResponse = await searchPeople(this.searchTerm, page);
+    this.people = peopleResponse.results;
+
+    //pass 'props' to pagination-container
+    paginationContainer.setAttribute("count", peopleResponse.count);
+    paginationContainer.setAttribute("next", peopleResponse.next || "");
+    paginationContainer.setAttribute("previous", peopleResponse.previous || "");
+
+    this.shadowRoot.removeChild(loadingText);
+    peopleContainer.setAttribute("people", JSON.stringify(this.people));
   }
 
   connectedCallback() {
