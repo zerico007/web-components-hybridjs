@@ -66,11 +66,10 @@ define({
     ${store.pending(people) && html`<p class="loading">Loading...</p>`}
     ${store.ready(people) &&
     html`<pagination-hybrid
-      count=${people.count}
-      next=${people.next}
-      previous=${people.previous}
-    ></pagination-hybrid>`}
-    ${store.ready(people) &&
-    html`<people-hybrid people=${people.results}></people-hybrid>`}
+        count=${people.count}
+        next=${people.next}
+        previous=${people.previous}
+      ></pagination-hybrid>
+      <people-hybrid people=${people.results}></people-hybrid>`}
   `,
 });
